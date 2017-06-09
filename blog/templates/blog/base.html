@@ -1,3 +1,29 @@
+ <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.js"></script>
+	
+         <script>
+
+	// a few things to setup ajax calls
+	var csrftoken = Cookies.get('csrftoken');
+	function csrfSafeMethod(method) {
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+	jQuery.ajaxSetup({
+	    // set token where needed (unsafe methods)
+	    // but dont leak token (dont set when posting externally)
+	    beforeSend: function(xhr, settings) {
+	        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	        }
+	    }
+	});</script>
+
+{% block js-head %}{% endblock %}
+</head>
+
+
 <body>
     <div class="page-header">
         <h1><a href="/">Django Girls Blog</a></h1>
@@ -5,7 +31,6 @@
     <div class="content container">
         <div class="row">
             <div class="col-md-8">
-
             {% block content %}
             {% endblock %}
             </div>

@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+
+{% block js-head %}
+<script>
+$.noConflict();
+function render_post(item, index){
+  jQuery("#all_posts").append(
+    "<br><h1>" + 
+    item.fields.title + 
+    "</h1><br><p>" + 
+    item.fields.text +
+    "</p>"
+  );  
+}
+jQuery(document).ready(function(){
+  alert("Document Ready.");
+  jQuery("#btn1").click(function(){
+    alert("You pressed the button.");
+    jQuery.ajax({
+      type: 'GET',
+      url: '{% url "json_all_posts" %}',
+      dataType: 'json',
+      success: function (data) {
+        var obj = JSON.parse(data);
+        obj.forEach(render_post);
+      }
+    })
+  });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<p>Press THE BUTTON to get JSON Content via XMLHttpRequest ie XHR ie AJAX ala SPA.</p>
+<div id="all_posts"></div>
+<button id="btn1">THE BUTTON</button>
+{% endblock %}
+
+
+
