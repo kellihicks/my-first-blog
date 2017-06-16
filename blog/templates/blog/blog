@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Kelli Hicks’s blog</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    </head>
+   <body>
+    <div class="page-header">
+{% if user.is_authenticated %}
+<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+{% if user.is_authenticated %}       
+ <h1><a href="/">Kelli's Blog</a></h1>
+    </div>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+<p>since 19.05.2017</p> 
+<h2><a href="">The Beginning</a></h2> 
+<p> It was a dark cloudy day of May the 19th when Kelli Hicks made her first blog post.</p> </div> 
+<div>
+ <p>published: 19.05.2017, 11:47</p>
+<h2><a href="">Update</a></h2>
+<p>Update two minutes later - still alive.</p> 
+</div>
+<p>published: 19.05.2017, 11:49</p>
+
+</body>
+</html>
+
